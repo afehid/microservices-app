@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '../config/config.module';
 
 @Module({
   imports: [
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('MONGODB_URI'),
       }),
@@ -14,8 +12,10 @@ import { ConfigModule } from '../config/config.module';
     }),
   ],
 })
+
+//to take the models to create it into mongo
 export class DatabaseModule {
-  static forFeature(models: ModelDefinition[]){
-    return MongooseModule.forFeature(models)
+  static forFeature(models: ModelDefinition[]) {
+    return MongooseModule.forFeature(models);
   }
 }

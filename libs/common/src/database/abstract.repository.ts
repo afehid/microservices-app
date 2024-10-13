@@ -7,6 +7,7 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
 
   constructor(protected readonly model: Model<TDocument>) {}
 
+  //This approach helps to prevent accidental overwriting of the _id field, which is typically managed by MongoDB itself.
   async create(document: Omit<TDocument, '_id'>): Promise<TDocument> {
     const createdDocument = new this.model({
       ...document,
@@ -20,7 +21,7 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
       .lean<TDocument>(true);
 
     if (!document) {
-      this.logger.warn('Document not found with filterQuery', filterQuery);
+      this.logger.warn('Document not found with filterQuery',  filterQuery);
       throw new NotFoundException('Document not found');
     }
     return document;
@@ -31,6 +32,7 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     update: UpdateQuery<TDocument>,
   ): Promise<TDocument> {
     const document = await this.model
+    //{new:true} to get the new document after updating
       .findOneAndUpdate(filterQuery, update, { new: true })
       .lean<TDocument>(true);
 
