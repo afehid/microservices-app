@@ -13,6 +13,7 @@ import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { CurrentUser, JwtAuthGuard, UserDto } from '@app/common';
 
+//once we validate the jwtAutGuard from @app/common it sends event names authentication while we're setting up the microservice with the authService and it brings back the passing of the user if correct
 @UseGuards(JwtAuthGuard)
 @Controller('reservations')
 export class ReservationsController {

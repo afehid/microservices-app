@@ -24,6 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
+  //we do localStrategy because we login and send the token to the header and then the jwtStrategy validate the token
   async validate({ userId }: TokenPayload) {
     return this.usersService.getUser({ _id: userId });
   }

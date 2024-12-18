@@ -9,6 +9,7 @@ import { AUTH_SERVICE } from '../constants/service';
 import { ClientProxy } from '@nestjs/microservices';
 import { UserDto } from '../dto';
 
+//this class gets tne jwt token and authenticates the user
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   //ClientProxy enables us to communicate with our microservices

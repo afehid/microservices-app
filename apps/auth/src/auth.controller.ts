@@ -15,6 +15,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
+    //we use currentUser to get the user to validate and we use res to send the user to the cookies
     @CurrentUser() user: UserDocument,
     @Res({ passthrough: true }) response: Response,
   ) {

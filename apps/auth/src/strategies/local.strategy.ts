@@ -14,7 +14,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(email: string, password: string) {
     //we use try and catch to throw the error coming from the service that coming from the abstract repository
     try {
-      return this.usersService.verifyUser(email, password);
+      return await this.usersService.verifyUser(email, password);
     } catch (error) {
       throw new UnauthorizedException(error);
     }
